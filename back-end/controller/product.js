@@ -6,7 +6,7 @@ const getAllProducts = async (req, res) => {
   const product = await Products.find({}).then((data) => {
     return res.status(200).json({
       success: data ? true : false,
-      data: data ? data : "cannot find product",
+      data: data ? data : "cannot find products",
     });
   });
 };
