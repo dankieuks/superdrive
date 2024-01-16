@@ -46,6 +46,7 @@ const Navbar = () => {
   };
 
   
+
   const minPrice = inputPrice.min;
   const maxPrice = inputPrice.max;
   const handlePrice = (e) => {
