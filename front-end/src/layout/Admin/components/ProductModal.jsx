@@ -24,21 +24,35 @@ export function ProductForm({ isModalOpen, closeModal, handleAddProduct }) {
 
   const handleImageChange = (e) => {
     const files = e.target.files;
-    const imageUrls = [];
+    const imageDatas = [];
 
     for (let i = 0; i < files.length; i++) {
-      const imageUrl = URL.createObjectURL(files[i]);
-      imageUrls.push(imageUrl);
-    }
+      const reader = new FileReader();
 
-    setnewProduct({
-      ...newProduct,
-      images: imageUrls,
-    });
+      reader.onload = (event) => {
+        const imageData = event.target.result;
+        imageDatas.push(imageData);
+
+        if (imageDatas.length === files.length) {
+          setnewProduct({
+            ...newProduct,
+            images: imageDatas,
+          });
+        }
+      };
+
+      reader.readAsDataURL(files[i]);
+    }
   };
+
   const handleAdd = () => {
+   
+    localStorage.setItem("productImages", JSON.stringify(newProduct.images));
+
+ 
     handleAddProduct(newProduct);
   };
+
   return (
     <div className={isModalOpen ? styles.modalEdit : styles.modalHidden}>
       <div className={styles.formContainer}>
